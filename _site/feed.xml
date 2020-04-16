@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://www.jakeschmitz.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jakeschmitz.com/" rel="alternate" type="text/html" /><updated>2020-04-16T05:38:08-05:00</updated><id>https://www.jakeschmitz.com/feed.xml</id><title type="html">Jake’s Blog</title><subtitle>This is a blog about what I'm learning about</subtitle><entry><title type="html">Receiving a phone call from FreeClimb</title><link href="https://www.jakeschmitz.com/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call.html" rel="alternate" type="text/html" title="Receiving a phone call from FreeClimb" /><published>2020-04-15T06:04:34-05:00</published><updated>2020-04-15T06:04:34-05:00</updated><id>https://www.jakeschmitz.com/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call</id><content type="html" xml:base="https://www.jakeschmitz.com/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call.html">&lt;h1 id=&quot;receiving-a-phone-call-from-freeclimb&quot;&gt;Receiving a phone call from FreeClimb&lt;/h1&gt;
+
+&lt;p&gt;This post walks through the set up of an application that will answer a phone call and say ‘Hello World’ to the caller using &lt;a href=&quot;https://www.freeclimb.com/&quot;&gt;FreeClimb&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;communication-flow&quot;&gt;Communication Flow&lt;/h3&gt;
+&lt;p&gt;There are four things involved in the communication flow:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;A Phone&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.freeclimb.com/&quot;&gt;FreeClimb&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ngrok.com/&quot;&gt;Ngrok&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Your local web applications (a Rails app in this case)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The communication flow is:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;User makes a phone call to a FreeClimb phone number&lt;/li&gt;
+  &lt;li&gt;FreeClimb answers that phone call&lt;/li&gt;
+  &lt;li&gt;FreeClimb sends a HTTP Request to a NGROK url&lt;/li&gt;
+  &lt;li&gt;NGROK proxys the local web server&lt;/li&gt;
+  &lt;li&gt;The local web server responds with commands to &lt;em&gt;Say Hello World&lt;/em&gt; and &lt;em&gt;Hangup&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;FreeClimb receives the HTTP Response commands&lt;/li&gt;
+  &lt;li&gt;FreeClimb says Hello World to the caller and hangs up&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;build-plan&quot;&gt;Build Plan&lt;/h3&gt;
+&lt;p&gt;To build the application and all the communication plumbing we’ll proceed in the following order:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Create a local Rails API app first that will receive an HTTP Request&lt;/li&gt;
+  &lt;li&gt;Configure FreeClimb&lt;/li&gt;
+  &lt;li&gt;Configure NGROK&lt;/li&gt;
+  &lt;li&gt;Use the FreeClimb SDK to talk back to FreeClimb in our Rails App&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;rails-api-app&quot;&gt;Rails API App&lt;/h2&gt;
+&lt;p&gt;Spin up a Rails API App. This will receive the HTTP request FreeClimb when a phone call arrives.&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rails new kms_conferencing &lt;span class=&quot;nt&quot;&gt;--api&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The plan is to be very targeted so I’ll create what I need mostly by hand.&lt;/p&gt;
+
+&lt;p&gt;Setup a route to a controller that will receive the HTTP Request when a phone call arrives.  Go to the config/routes.rb and add the following:&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;draw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'inbound_calls'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;to: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'inbound_calls#create'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Add a controller &lt;em&gt;inbound_calls_controller.rb&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;InboundCallsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationController&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'recieved a call'&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Fire up your app locally&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rails s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Test the endpoint you just made using curl&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{&quot;key1&quot;:&quot;value1&quot;, &quot;key2&quot;:&quot;value2&quot;}'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Content-Type: application/json&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST http://localhost:3000/inbound_calls
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Your local log output should look something like this&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Started POST &lt;span class=&quot;s2&quot;&gt;&quot;/inbound_calls&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; ::1 at 2020-03-21 08:20:50 &lt;span class=&quot;nt&quot;&gt;-0500&lt;/span&gt;
+Processing by InboundCallsController#create as &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+  Parameters: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;value1&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;key2&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;value2&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;inbound_call&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;value1&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;key2&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;value2&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}}&lt;/span&gt;
+recieved a call
+Completed 204 No Content &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0ms &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ActiveRecord: 0.0ms | Allocations: 31&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Alrighty, your local web server should be setup for now. Let’s get FreeClimb setup to send you an HTTP Request and we’ll circle back to the app after FreeClimb can talk to it.&lt;/p&gt;
+
+&lt;h2 id=&quot;freeclimb&quot;&gt;FreeClimb&lt;/h2&gt;
+&lt;p&gt;This is all setup no code, unless you want to use the API… In this case, I’m using the dashboard.&lt;/p&gt;
+
+&lt;p&gt;The Getting Started and SDK examples are the best reference to get going with FreeClimb. I’d recommend using those for detailed instructions. At a high level do the following with FreeClimb using the dashboard (or you can do this with the API too) to complete the following:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Get a &lt;em&gt;FreeClimb phone number&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;Create an &lt;em&gt;Application&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;Set your &lt;em&gt;voice_url&lt;/em&gt; on the &lt;em&gt;Application&lt;/em&gt; to point at your NGROK url (read the next paragraph, you need ngrok for this)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Once you have a phone number and an application assigned to that phone number lets make a call.  You should hear an error message and if you go to your error logs in your dashboard you should see an error message that says something like you need to add valid HTTP Endpoint. If you add your localhost… not gonna work, its not publicly accessible for FreeClimb to talk to. This is where we’re going to use ngrok to open up that local server.&lt;/p&gt;
+
+&lt;h2 id=&quot;ngrok&quot;&gt;NGROK&lt;/h2&gt;
+&lt;p&gt;This is for our local development and helping us maintain a fast feedback cycle as we build. NGROK will expose a public url that FreeClimb can send an HTTP Request and NGROK will proxy the request to my local application serve. In this case a rails api. You can download their zip file to install or I used brew:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew cask &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ngrok
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Set up a password protected tunnel&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ngrok http &lt;span class=&quot;nt&quot;&gt;-auth&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;user:password&quot;&lt;/span&gt; 3000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once you have your tunnel setup you can see and replay requests:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localhost:4040/inspect/http
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is awesome because you can now use the replay repeat your HTTP requests. In this case, instead of making phone calls to test your app you can click replay and trigger HTTP requests. In the long run setting up tests is the way to go and the replay button can get you jump started.&lt;/p&gt;
+
+&lt;p&gt;With your tunnel setup, circle back to the FreeClimb application dashboard. Set the &lt;em&gt;FreeClimb Application Voice&lt;/em&gt; to be&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://[user]:[password]@[your_ngrok_url]/inbound_calls
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Thats good bit of substitution to take care of. Take your time and get it right :)&lt;/p&gt;
+
+&lt;p&gt;If you make a call now you’ll likely see NGROK telling you something like&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;403 /inbound_calls FORBIDDEN
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To fix this, circle back to your rails app. You need to whitelist ngrok urls and can so in the config/environments/development.rb file:&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;c1&quot;&gt;#Allow ngrok to contact application&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;hosts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/[a-z0-9]+\.ngrok\.io/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After all of that jumping around, you have a pretty good chance of having a phone call trigger the request on your server! Pretty awesome.&lt;/p&gt;
+
+&lt;h2 id=&quot;back-to-your-rails-app-tell-freeclimb-what-to-do&quot;&gt;Back to your Rails App; Tell FreeClimb what to do&lt;/h2&gt;
+&lt;p&gt;FreeClimb needs JSON sent back on the HTTP Response. We could form our own or use the FreeClimb SDK to help us out. Let get that installed by adding the FreeClimb gem. Related instructions can be found here: &lt;a href=&quot;https://docs.freeclimb.com/docs/getting-started-with-ruby&quot;&gt;FreeClimb Ruby Install&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;add-the-freeclimb-gem&quot;&gt;Add the FreeClimb Gem&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; gem &lt;span class=&quot;s1&quot;&gt;'freeclimb'&lt;/span&gt;, &lt;span class=&quot;s1&quot;&gt;'~&amp;gt; 1.0'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;tell-freeclimb-to-play-a-message-and-hangup&quot;&gt;Tell FreeClimb to play a message and hangup&lt;/h3&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;InboundCallsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationController&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;say&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Percl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Say&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Hello World. Good bye.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;hangup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Percl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Hangup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Percl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;say&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hangup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;json: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_json&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Give the FreeClimb phone number a call. We should hear a &lt;em&gt;Hello World&lt;/em&gt; and see the logs in NGROK and our local Rails application! We’re all setup to proceed adding more awesomeness to the app.&lt;/p&gt;</content><author><name></name></author><category term="inbound" /><category term="phone call" /><summary type="html">Receiving a phone call from FreeClimb</summary></entry><entry><title type="html">First Post!</title><link href="https://www.jakeschmitz.com/2020/04/10/first.html" rel="alternate" type="text/html" title="First Post!" /><published>2020-04-10T06:04:34-05:00</published><updated>2020-04-10T06:04:34-05:00</updated><id>https://www.jakeschmitz.com/2020/04/10/first</id><content type="html" xml:base="https://www.jakeschmitz.com/2020/04/10/first.html">&lt;p&gt;Hello! Thank you for the visit to the first post of the blog! The primary focus of this blog will be to share knowledge about:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Software Engineering&lt;/li&gt;
+  &lt;li&gt;Leadership&lt;/li&gt;
+  &lt;li&gt;Health&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Outside of family time, my time, energy and learning go into those three topics.&lt;/p&gt;
+
+&lt;p&gt;I’m optimistic a bit of content will be created that a few folks will find useful.
+I also have a bit of trepediation about writing publicly, its new for me and I have a suspicion I’ll write about getting better at writring. Very meta.&lt;/p&gt;
+
+&lt;p&gt;My plan for writing improvement is two fold. First, write often. A theme I see in learning is that you’ll learn faster if you do the thing and do that thing your learning a lot. Avoid analysis paralysis.  Perhaps a more in depth post on that topic at a later date.
+Second, study the topic. As I find good resources I’ll post!&lt;/p&gt;
+
+&lt;p&gt;With that, lets get started!&lt;/p&gt;</content><author><name></name></author><summary type="html">Hello! Thank you for the visit to the first post of the blog! The primary focus of this blog will be to share knowledge about: Software Engineering Leadership Health</summary></entry></feed>
