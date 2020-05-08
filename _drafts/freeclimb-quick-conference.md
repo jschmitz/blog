@@ -3,9 +3,9 @@ layout: post
 title: freeclimb_quick_conference
 ---
 
-Let's setup a conference call with multiple callers on [FreeClimb](www.freeclimb.com). We'll start by creating the most minimal conference we can, bells and whistles can be added from there. A prerequisite is [](https://jakeschmitz.com/blog/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call.html), if you haven't completed the steps in that post you'll need to in order to complete a conference setup. The additional resources needed to complete the steps in this post will be:
+Let's setup a conference that will enable multiple callers to start chatting. We'll start by creating the most minimal conference we can on [FreeClimb](www.freeclimb.com). A prerequisite is a previous post [Receiving a phone call from FreeClimb](https://jakeschmitz.com/blog/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call.html), if you haven't completed the steps in that post you'll need to in order to complete setting up a conference. The resources needed to complete the steps in this post will be:
 1. A FreeClimb Conference
-2. Two phone calls
+1. Two phone calls
 
 ## Create FreeClimb Conference
 FreeClimb conferences are persistent so you can re-use them as needed. This means that conferences can be created before phone calls arrive to your conference arrive. We will use the FreeClimb API to create a conference using curl.
@@ -37,8 +37,10 @@ curl -X POST "https://www.freeclimb.com/apiserver/Accounts/AC5asdf34532142144241
 
 You should get a *conferenceId* returned in the response. We're going to need that for our next step.
 
-## Handle Inbound Calls
-This portion builds off of the previous blog post Receiving a [Phone Call from FreeClimb](https://jakeschmitz.com/blog/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call.html). If you haven't check that post out, you'll need to get this to your phone calls connecting. The next update will be to the InboundCallsController. We're going to use the *conferenceId* we just created and use that to connect phone calls using the PerCl [addToConference](https://docs.freeclimb.com/reference/conference-participants-1#addtoconference) command. Start up your server and confirm your "Hello World" app is working. Then, lets make a couple changes:
+## Connect Your Callers
+This portion builds off of the previous blog post Receiving a [Phone Call from FreeClimb](https://jakeschmitz.com/blog/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call.html). If you haven't check that post out, you'll need to get this to your phone calls connecting. You have a phone number available and that phone number can receive many phone calls. The code we'll add below will put all callers that call your number into a conference and enable those callers to talk to each other.
+
+The next update will be to the InboundCallsController that you've already created. We're going to use the *conferenceId* we previously to host a conference. To do so, we'll use PerCL, its JSON commands under the hood, to tell FreeClimb to add all calls received to the conference resource. The PerCL command to use is [addToConference](https://docs.freeclimb.com/reference/conference-participants-1#addtoconference) and that will be added to your HTTP Response back to FreeClimb. Start up your server and confirm your "Hello World" app is working. Then, update the response your providing:
 
 The most minimal code in your controller would be:
 ```ruby
@@ -55,18 +57,18 @@ class InboundCallsController < ApplicationController
 end
 ```
 
-Ensure your server is running and try out a couple of phone calls. The first call you're going to get connected and hear silence, its a bit strange. The second call will trigger a beep in the conference and you'll be connected and the two calls can chats.
+Ensure your server is running and try out a couple of phone calls. The first call you're going to get connected and hear silence, its a bit strange. The second call will trigger a beep in the conference and you'll be connected and the two callers can chats. Success!
 
-## Extra! - getting rid of the creepy silence
+## Extra! - Remove the strange initial silence
 
 First a bit of a greeting goes along way. You can add a greeting into your PerCl response
 ```ruby
     say = Percl::Say.new("Hello, you're about to be added to a conference.")
     script.add(say)
 ```
-The string you provide will be read out, Text To Speech (TTS), to the caller upon arrival.
+The string you provide will be read out, Text To Speech (TTS), to the caller upon arrival. After the greeting the caller will experience silence until another caller arrives. We can keep improving.
 
-Next, you can add folks into what many conferencing folks would call the *lobby* by setting the startConfOnEnter attribute to false.
+Next, we can add hold music for the intial caller(s). We can add folks into what many conferencing folks would call the *lobby* by setting the startConfOnEnter attribute to false.
 ```ruby
     addToConference = Percl::AddToConference.new(conference_id, call_id)
     addToConference.startConfOnEnter = false
@@ -76,4 +78,4 @@ If the conference is not started and *startConfOnEnter* is set to false, callers
 
 
 ## Conclusion
-You've created a conference call that is available to anyone that calls that number, pretty cool and also something you probably don't want to keep running on your account :) Once the calls you have calls connecting try getting conferences created dynamically using the API and using startConfOnEnter to provide folks with hold music. You can keep adding building blocks of FreeClimb API along with other API services to make your app more and more awesome.
+You've created a conference call that is available to anyone that calls that number, pretty cool and also something you probably don't want to keep running for the world :) Next try getting conferences created dynamically using the API and use your own logic to get folks into the lobby and then start the conference. You can keep adding building blocks of FreeClimb API along with other API services to make your app more and more awesome.
