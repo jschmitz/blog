@@ -1,6 +1,6 @@
 ---
 layout: post
-title: freeclimb_quick_conference
+title: Quick Conference Setup on FreeClimb
 date: 2020-05-11 05:58 -0500
 ---
 How can you enable your users to have conversations? This post will show how to provide conversations programmatically with your applications and we'll start by creating the most minimal conference we can on [FreeClimb](www.freeclimb.com). A prerequisite is a previous post [Receiving a phone call from FreeClimb](https://jakeschmitz.com/blog/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call.html), if you haven't completed the steps in that post you'll need to in order to complete setting up a conference. The resources needed to complete the steps in this post will be:
