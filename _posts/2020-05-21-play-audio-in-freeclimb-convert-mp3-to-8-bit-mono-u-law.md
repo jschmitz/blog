@@ -12,21 +12,21 @@ FreeClimb supports playback of single-channel 8 kHz 8-bit μ-law WAV files. When
 
 These steps should get you the file format you need:
 1. Import the audio file to convert in your Audacity
-  1. Drag it into the editor
-  1. or
-  1. File --> Import --> Audio
+    1. Drag it into the editor
+    1. or
+    1. File --> Import --> Audio
 1. Ensure you have a mono track
-  1. Track
-  1. Mix
-  1. Mix Stereo Down to Mono
+    1. Track
+    1. Mix
+    1. Mix Stereo Down to Mono
 1. Export to the supported file format
-  1. File
-  1. Export as Wav
-  1. Other Uncompressed Files
-  1. Header --> WAV (Microsoft)
-  1. Encoding --> U-Law
-  1. Save
-  1. Export
+    1. File
+    1. Export as Wav
+    1. Other Uncompressed Files
+    1. Header --> WAV (Microsoft)
+    1. Encoding --> U-Law
+    1. Save
+    1. Export
 
 Want to see this visually?  Check out [this video](https://www.youtube.com/watch?v=CeiJtLs1mJ0) to see the process in action.
 
