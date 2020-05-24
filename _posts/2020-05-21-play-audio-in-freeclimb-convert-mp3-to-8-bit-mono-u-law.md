@@ -19,6 +19,9 @@ These steps should get you the file format you need:
     1. Track
     1. Mix
     1. Mix Stereo Down to Mono
+1. Resample
+    1. Tracks
+    1. New Sample Rate --> 8000
 1. Export to the supported file format
     1. File
     1. Export as Wav
