@@ -10,6 +10,8 @@ tags: [inbound, phone call]
 
 This post walks through the set up of an application that will answer a phone call and say 'Hello World' to the caller using [FreeClimb](https://www.freeclimb.com/).
 
+
+
 ### Communication Flow
 There are four things involved in the communication flow:
 1. A Phone
@@ -17,14 +19,22 @@ There are four things involved in the communication flow:
 1. [Ngrok](https://ngrok.com/)
 1. Your local web applications (a Rails app in this case)
 
+
+
+### Next
+
 The communication flow is:
 1. User makes a phone call to a FreeClimb phone number
 1. FreeClimb answers that phone call
 1. FreeClimb sends a HTTP Request to a NGROK url
-1. NGROK proxys the local web server
-1. The local web server responds with commands to _Say Hello World_ and _Hangup_
-1. FreeClimb receives the HTTP Response commands
+1. NGROK proxies the HTTP Request to your local web server
+1. The local web server responds with PerCL commands to _Say Hello World_ and _Hangup_
+1. FreeClimb receives the HTTP Response command _Say_ and _Hangup_
 1. FreeClimb says Hello World to the caller and hangs up
+
+Sequence diagrams help me out quite a bit. Here's what this would look like:
+
+![Incoming Call Sequence Diagram]({{site.url}}/blog/assets/diagrams/incoming_call.svg)
 
 ### Build Plan
 To build the application and all the communication plumbing we'll proceed in the following order:
