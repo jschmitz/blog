@@ -7,8 +7,17 @@ How can you enable your users to have conversations? This post will show how to 
 1. One [FreeClimb Conference](https://docs.freeclimb.com/reference/conferences)
 1. Two phone calls
 
+The diagram to connect two calls is much appears much more complex than the code required. We'll break it down as we go as well too.
+
+![Incoming Call Sequence Diagram]({{site.url}}/blog/assets/diagrams/quick_conference_full.svg)
+
+You'll notice that the two callers into FreeClimb both end up in a FreeClimb conference and when callers are in a started conference they will be able to talk to each other.
+
 ## Create FreeClimb Conference
 FreeClimb conferences are persistent so you can re-use them as needed. This means that conferences can be created before phone calls arrive to your conference arrive. We will use the FreeClimb API to create a conference using curl.
+
+Revisiting our sequence diagram we will complete these steps:
+![Incoming Call Sequence Diagram]({{site.url}}/blog/assets/diagrams/quick_conference_curl.svg)
 
 First, lets checkout the reference docs to [create a conference](https://docs.freeclimb.com/reference/conferences#create-a-conference).  The curl in the example provided is:
 
@@ -35,10 +44,15 @@ Your curl command should looks something like this after completing your adjustm
 curl -X POST "https://www.freeclimb.com/apiserver/Accounts/AC5asdf345321421442412sfsdvsgd/Conferences" -d "{\"alias\":\"Jakes test Conference\", \"playBeep\":\"always\", \"record\":false }" -u "AC5asdf345321421442412sfsdvsgd:bsdf214sadsfasfdsfasfasfasffht"
 ```
 
-You should get a *conferenceId* returned in the response. We're going to need that for our next step.
+You will have a *conferenceId* returned in the response and we're going to need that for our next step.
 
 ## Connect Your Callers
-This portion builds off of the previous blog post Receiving a [Phone Call from FreeClimb](https://jakeschmitz.com/blog/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call.html). If you haven't check that post out, please do so. From the previous post, you have a phone number available that is connected to your app that can receive many phone calls. The code we'll add below will put all callers that call your number into a conference and enable those callers to talk to each other.
+This portion builds off of the previous blog post Receiving a [Phone Call from FreeClimb](https://jakeschmitz.com/blog/ruby/rails/freeclimb/2020/04/15/inbound-freeclimb-call.html). If you haven't check that post out, please do so. From the previous post, you have a phone number available that is connected to your app that can receive many phone calls. We will apply the same behavior to all calls, with that N calls can arrive into the system and the processing will be:
+
+![Incoming Call Sequence Diagram]({{site.url}}/blog/assets/diagrams/quick_conference_one_caller.svg)
+
+
+The code we'll add below will put all callers that call your number into a conference and enable those callers to talk to each other.
 
 The next update will be to the InboundCallsController that you've already created. We're going to use the *conferenceId* we previously to host a conference. To do so, we'll use PerCL, its JSON commands under the hood, to tell FreeClimb to add all calls received to the conference resource. The PerCL command to use is [addToConference](https://docs.freeclimb.com/reference/conference-participants-1#addtoconference) and that will be added to your HTTP Response back to FreeClimb. Start up your server and confirm your "Hello World" app is working. Then, update the response your providing:
 
