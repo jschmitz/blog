@@ -1,4 +1,8 @@
-# Why 5AM? - The Morning Routine
+---
+layout: post
+title:  "Why 5AM? - The Morning Routine"
+date:   2020-06-01 06:58:34 -0500
+---
 
 My alarm is set for 5AM six days a week except Sunday. Why in the world would I do that to myself? For me, 5am to 7am time-frame is the time of the day, most days, where the house is quiet and I consistently can make choices about how I spend about two hours. The rest of the day, at home and at work, my time is, for the most part, dedicated to those around me or has a high likelihood of interruption. The 5am alarm enables me to spend time on a few areas that are important to me on a daily basis.
 
