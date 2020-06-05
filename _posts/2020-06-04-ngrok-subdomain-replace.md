@@ -6,7 +6,7 @@ date: 2020-06-04 06:28 -0500
 
 The mornings I’m working with FreeClimb at some point in my testing an ngrok connection is needed to be set up for my local test environment. This results in creating new ngrok tunnel, updating my FreeClimb webhook urls on my dashboard and then updating my local app environment variables used for callbacks from FreeClimb. This procedure has been executed more than twice so being a good lazy developer I wrote a little script to expedite the procedure and thought other folks may find it useful.
 
-The script is posted as a [public gist](https://gist.github.com/jschmitz/df4e1f33fd19f05726ed5c909e013d5c/edit) and, if its helpful, please modify and use as needed. The script, as written, requires a specific setup that I'll describe.
+The script is posted as a [public gist](https://gist.github.com/jschmitz/df4e1f33fd19f05726ed5c909e013d5c/) and, if its helpful, please modify and use as needed. The script, as written, requires a specific setup that I'll describe.
 
 ## Ngrok
 The script expects you to be using Basic Auth with your ngrok connection.
