@@ -43,8 +43,10 @@ curl -s -X POST -d "{\"voiceUrl\":\"$new_public_url/inbound_calls\", \"smsUrl\":
 Time to run the script. I copy the subdomain from the ngrok terminal and paste to pass the new subdomain to the script:
 
 ```bash
-./ngork_update newNgrokSubdomainPasted
+. ./ngork_update newNgrokSubdomainPasted
 ```
+
+The leading period will execute the script in the current shell vs. a sub shell. If the script is executed in a subshell] when you start your application in the current shell the environment variable will remain unchanged.
 
 And done! You’re all set to go to start making calls and sending messages to your local test environment.
 
@@ -56,3 +58,4 @@ I don’t make Bash Scripts on a daily basis so I found the need to google a bun
 * https://linuxhint.com/curl_bash_examples/
 * https://stackoverflow.com/questions/13210880/replace-one-substring-for-another-string-in-shell-script
 * https://stackoverflow.com/questions/9741433/appending-a-line-break-to-an-output-file-in-a-shell-script
+* https://stackoverflow.com/questions/14744904/how-to-execute-script-in-the-current-shell-on-linux
