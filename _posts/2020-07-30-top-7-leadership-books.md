@@ -1,6 +1,6 @@
 ---
 layout: post
-title: top_7_leadership_books
+title: Top 7 Leadership Books
 date: 2020-07-30 06:30 -0500
 ---
 My sister recently texted and asked for a list of good business books.  I was surprised how quickly I arrived at my top 7:
