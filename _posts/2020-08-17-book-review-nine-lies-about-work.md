@@ -1,6 +1,6 @@
 ---
 layout: post
-title: book_review_nine_lies_about_work
+title: "Book Review: Nine Lies About Work"
 date: 2020-08-17 06:16 -0500
 ---
 [Nine Lies About Work, _A Freethinking Leader's Guide to the Real World_](https://www.goodreads.com/book/show/40086702-nine-lies-about-work?ac=1&from_search=true&qid=MGQWTMoLL0&rank=1) is true to its title, it has nine work place conventional wisdom items that the authors identify as not so true. The nine lies create a quick read and there are several concepts that I identified with based on my experiences:
@@ -9,7 +9,7 @@ date: 2020-08-17 06:16 -0500
 1. People need positive feedback
 1. Play to peoples strengths
 
-A chapter that stood out to action on and apply is _The Best Plan Wins_. The story of Operation and Intelligence (O & I) two hour meeting is fascinating for someone who generally avoids frequent meetings and with many people. I'm interested to apply this concept in a yet to be determined form. 
+A chapter that stood out to action on and apply is _The Best Plan Wins_. The story of Operation and Intelligence (O & I) two hour meeting is fascinating for someone who generally avoids frequent meetings and with many people. I'm interested to apply this concept in a yet to be determined form.
 
 ## Notes
 |Lie|Notes|
