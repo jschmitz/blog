@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "How to Have Terrific One on Ones"
+title: How to Have Terrific One on Ones
+date: 2020-10-29 06:32 -0500
 ---
 ## Terrific One on Ones
 
