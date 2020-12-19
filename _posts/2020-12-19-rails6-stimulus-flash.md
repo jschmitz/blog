@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Minimal AJAX with Stimulus, Rails 6 and JS HTTP POST Request using Fetch
+date: 2020-12-19 05:22 -0600
 ---
-
 The process of adding AJAX calls to a Rails application generally results in adding a few hefty libraries to your apps especially if the result is a framework being added to handle dynamic user interactions. The Rails 6 + Stimulus + Turbolinks advertises a lightweight approach to provide dynamic user interactions and the advertising did lives up to its billing. Stimulus provides a very small footprint, short setup time, and straightforward view and controller wiring to add dynamic user interactions to your application.
 
 Two areas caused a small bit of time loss in setup:
