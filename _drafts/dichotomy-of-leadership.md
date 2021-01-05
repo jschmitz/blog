@@ -89,15 +89,37 @@ This is a good read my notes are below and there was one highlight. Twice the au
 * Analyze risks vs. rewards
 
 # Chapter 7 - Disciplined, not Rigid
+* Discipline is very important
+* Use Standard Operating Procedures (SOPs), Processes and team exercises with small adjustments
+* Can lose free thinking if too rigid
+* Too many SOPs, procedures is a stifling environment
+* Allow room to adapt, adjust and manuever
 
 # Chapter 8 - Hold People Accountable, But do not Hold their hands
 * Second instance of explaining WHY
-* If folks know why something is important more likely to change behavior
-
+* You can hold people accountable with direct oversight
+* Important to explain WHY and trust the team will hold themselves accountable
+* Accountability is still important, leaders must maintain a level of standards
+* Use the accountability , direct oversight, tool only when necessary
+* Move to explaining why and building trust
+* Accountability, direct oversight, is time consuming, inhibits trust, growth and development
 
 # Chapter 9 - A Leader and a Follower
+* Leaders must be willing and able to lead
+* Leaders must be willing to listen and follow
+* Following includes folks that are up, down and across
+* Good leaders encourage jrs to lead and encourage growth
+* You must support your leader
+* Disagree and commit, support decisions as if you own them
 
 # Chapter 10 - Plan, but Don't Over-plan
+* Planning is essential
+* De-risk for folks involved
+* Plan for 3 - 5 likely contingencies
+* Do not plan for every contingencies
+* Planning for too many contingency is time consuming and overwhelming
+* Must avoid over confidence
+* 
 
 # Chapter 11 - Humble, Not Passive
 
