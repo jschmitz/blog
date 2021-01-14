@@ -1,10 +1,12 @@
 ---
 layout: post
-title: Dichotomy of Leadership
+title: "Book Review: Dichotomy of Leadership"
 ---
-The pendulum is always swinging and its easy to let it get stuck in certain aspects of your leadership. [Dichotomy of Leadership](https://www.goodreads.com/book/show/38714388-the-dichotomy-of-leadership) is all about finding balance for your leadership responsibilities and letting the pendulum have some motion. The pendulum swings empowing others, leading an following, mentoring and firing and so on.
+The pendulum is always swinging and its important not to let the pendulum get stuck in certain aspects of your leadership. [Dichotomy of Leadership](https://www.goodreads.com/book/show/38714388-the-dichotomy-of-leadership) is all about finding balance for your leadership responsibilities and have some motion that enhances your leadership.
 
-This is a good read my notes are below and there was one highlight. Twice the authors touched on the importance of understanding the WHY.
+A concept that caught my eye was communicating the _importance of why_ was brought up in two separate instances as the means to overcome leadership challenges, first to overcome change management issues and the second to hold people accountable without implementing constant audits. Simon Sinek's material, Start with Why, immediately jumps to top of mind and I was compelled to watch his [Ted Talk](https://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action) again. Communicating Why is an important skill to consistently improve and put into practice.
+
+The notes below are a good starting point and I recommend to read the book in its entirety. The authors have created and good rhythm for the reader sharing a military story, discussing a principle and sharing a corresponding business story. The stories help you to learn and remember the principles think about how to apply the principles in practice.
 
 # Chapter 1 - The ultimate dichotomy
 
@@ -39,7 +41,7 @@ This is a good read my notes are below and there was one highlight. Twice the au
   * The team does not seek solutions to problems; instead its members sit and wait to be told about a solution.
   * Even in an emergency, a team that is being micro-managed will not mobilize and take action.
     * Bold and aggressive action becomes rare.
-    * Creativity grinds to a halt.
+    * Creativity grinds to a halt
     * The team tends to stay inside their own silos; not stepping out to coordinate efforts with other departments or divisions for fear of overstepping their bounds.
     * An overall sense of passivity and failure to react
     * ask
@@ -75,7 +77,7 @@ This is a good read my notes are below and there was one highlight. Twice the au
 * Will be ready for real world opportunities
 * Question - how do you balance training time / investment vs. deliverables?
 
-# Chapter 6 - Aggressive, not Recless
+# Chapter 6 - Aggressive, not Reckless
 * Aggressive by default
   * Most high performers have a bias towards action
 * Don't let problems fester and get out of control
@@ -93,7 +95,7 @@ This is a good read my notes are below and there was one highlight. Twice the au
 * Use Standard Operating Procedures (SOPs), Processes and team exercises with small adjustments
 * Can lose free thinking if too rigid
 * Too many SOPs, procedures is a stifling environment
-* Allow room to adapt, adjust and manuever
+* Allow room to adapt, adjust and maneuver
 
 # Chapter 8 - Hold People Accountable, But do not Hold their hands
 * Second instance of explaining WHY
@@ -119,8 +121,19 @@ This is a good read my notes are below and there was one highlight. Twice the au
 * Do not plan for every contingencies
 * Planning for too many contingency is time consuming and overwhelming
 * Must avoid over confidence
-* 
 
 # Chapter 11 - Humble, Not Passive
+* Do the little things
+* Have humility
+* Do not be above contributing to any task
+* Carry the sandbags even when tired
+* Doing the little things, being dependable, builds trust
+* With that, push back when needed if a request puts the team or mission at risk
 
 # Chapter 12 - Focused, but Detached
+* Can not become so immersed in details you can not see the strategic situation
+* aka - You can't see the forest from the tress
+* Conversely; you can not be so detached you can't see the details
+* Look around, move around see the details while keeping the broader context in mind
+* Need to get a view at all levels
+* Separating from the day to day, attending retreat or conference, can help step back and see the bigger picture
