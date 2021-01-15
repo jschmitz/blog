@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Troubleshooting Docker, Rails and Postgres Setup"
+title: "Five Tips for Troubleshooting Docker, Rails and Postgres Setup"
 ---
 
-The process to connect two containers, a application container and database container can sometimes become a challenge an if you're in that challenge and seeing error like "No Postgres password supplied" or "No implice conversion from nil to String" this post can help!
+These five tips will help you if you run into trouble setting up your Rails app and your database using Postgres as an example. The setup to connect two containers, a application container and database container can become a challenge if your config is not quite right and you may start seeing errors like "No Postgres password supplied" or "TypeError (no implicit conversion of nil into String)" and this post can help!
 
-With a few troubleshooting tips and tricks setting up your Rails application to run with Docker and containerized Postgres image and be a quick and painless effort. 
+With a few troubleshooting tips and tricks setting up your Rails application to run with Docker and containerized Postgres image and be a quick and painless effort.
 
-First, lets check out what out Dockerfile, docker-compose.yml and config/database.yml will look like in when completed.
+First, lets check out what out Dockerfile, docker-compose.yml and config/database.yml will look like when completed.
 
 ## Dockerfile
 ```YAML
@@ -72,7 +72,7 @@ development:
 ```
 
 # 1. Read the DockerHub Postgres instructions
-I know weird... reading the instructions. In this case I have a suspicion this will save you time in your setup. Specifically check out the envrionment variables that you can set when intiailizing your Postgres instance.
+I know weird... reading the instructions. In this case I have a suspicion this will save you time in your setup. Specifically check out the environment variables that you can set when initializing your Postgres instance.
 
 With that, click the link! [DockerHub Postgres](https://hub.docker.com/_/postgres/)
 
@@ -83,7 +83,7 @@ The work for you to do for this is to update your database.yml file to use envir
 
 
 # 3. Delete the Postgres data directory to update
-Lets check out the db section of the Docker Compose more closely, specifically the initialization of the DB. The Postgres database is initialized once. The User, Password and DB (password is the minium input required) is initialized once the data directory is populated. The data directory is defined in the volume attribute, in this case your local directory will be ./tmp/db.
+Let's check out the db section of the Docker Compose more closely, specifically the initialization of the DB. The Postgres database is initialized once. The User, Password and DB (password is the minimum input required) is initialized once the data directory is populated. The data directory is defined in the volume attribute, in this case your local directory will be ./tmp/db.
 
 ```YAML
 version: '3.0'
@@ -98,16 +98,16 @@ services:
       POSTGRES_DB: ${ROCKWORM_DB_USER}
 ```
 
-To update your Postgres, delete the data director for postgres to so that on the next startup the Postgres will re-intialize using your updated environment variables.
+To update your Postgres, delete the data director for Postgres to so that on the next startup the Postgres will reinitialize using your updated environment variables.
 
 ```bash
 rm -rf tmp/db/
 ```
 
-You can change your environment variables all you want and that will not help you out. Postgres and its initial user is NOT re-intialized or update if you change this section
+You can change your environment variables all you want and that will not help you out. Postgres and its initial user is NOT reinitialized or update if you change this section
 
 # 4. Check Postgres has initialized as expected
-A couple of commands will help you to verify that postgres is running as expected and here is a quick way to do so.
+A couple of commands will help you to verify that Postgres is running as expected and here is a quick way to do so.
 
 Check that your container image is running:
 ```bash
