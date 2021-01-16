@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "Book Review: Dichotomy of Leadership"
+title: 'Book Review: Dichotomy of Leadership'
+date: 2021-01-16 14:24 -0600
 ---
-The pendulum is always swinging and its important not to let the pendulum get stuck in certain aspects of your leadership. [Dichotomy of Leadership](https://www.goodreads.com/book/show/38714388-the-dichotomy-of-leadership) is all about finding balance for your leadership responsibilities and have some motion that enhances your leadership.
+When it comes to leadership your judgement is consistently being exercised to find the right approach and balance for different challenges. If your too hands off the team becomes sloppy but if your overbearing team members do not grow, lack of aggression can lead to no progress but over aggression leads to becoming over exposed to risks. [Dichotomy of Leadership](https://www.goodreads.com/book/show/38714388-the-dichotomy-of-leadership) is all about finding balance for your leadership responsibilities and that enhances your leadership.
 
-A concept that caught my eye was communicating the _importance of why_ was brought up in two separate instances as the means to overcome leadership challenges, first to overcome change management issues and the second to hold people accountable without implementing constant audits. Simon Sinek's material, Start with Why, immediately jumps to top of mind and I was compelled to watch his [Ted Talk](https://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action) again. Communicating Why is an important skill to consistently improve and put into practice.
+A recurring theme that is see studying leadership is communicating the _importance of why_ and this theme was brought up in two instances overcome leadership challenges related to:
+1. to overcome and implement changes
+1. to hold people accountable without implementing constant audits
 
-The notes below are a good starting point and I recommend to read the book in its entirety. The authors have created and good rhythm for the reader sharing a military story, discussing a principle and sharing a corresponding business story. The stories help you to learn and remember the principles think about how to apply the principles in practice.
+Simon Sinek's material, Start with Why, immediately jumps to top of mind and I was compelled to watch his [Ted Talk](https://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action) again. Communicating _Why_ is an important skill to consistently improve and practice.
+
+The notes below are a good starting point and I recommend to read the book in its entirety. The authors have created a good cadence for the reader by sharing memorable stories to discuss the underlying principles. The stories help you to learn and think about how to apply the principles discussed in your day to day.
+
 
 # Chapter 1 - The ultimate dichotomy
 
@@ -28,14 +34,6 @@ The notes below are a good starting point and I recommend to read the book in it
     * Had to cut further otherwise risked all jobs and risked being replace with someone that would over cut jobs
 
 # Chapter 2 - Own it all but empower others
-* As a leader you can swing between micro-managing and being too hands off
-    * Story about running ops in to detailed and got too complicate to do everything
-        * Ended up stunting growth of other team leads
-        * Once giving up ownership leads grew, author was able to reach a higher level
-    * Story about being too hands off and team getting sloppy
-        * Had to stop the sloppiness
-        * Directly confronted direct report lead
-        * “Sloppy one more time and you’re out”
 * Micromanaging symptoms
   * The team shows a lack of initiative. Members will not take action unless directed.
   * The team does not seek solutions to problems; instead its members sit and wait to be told about a solution.
@@ -52,12 +50,6 @@ The notes below are a good starting point and I recommend to read the book in it
     * Failure to coordinate. While a micromanaged team might not coordinate with other teams because it doesn’t want to overstep its bounds, a team without good guidance many also fail to coordinate not out of fear but out of ignorance. In its efforts to solve problems and accomplish the mission, the team forgets the other teams might also be maneuvering and end up interfering with their efforts.
     * The team is focused on the wrong priority mission or pursuit of solutions that are not in keeping with the strategic direction of the team or the commander’s intent.
     * There are too many people trying to lead. Since everyone is trying to lead there won’t be enough people to execute. Instead of progress, the leader will see discussion; instead of action, the leader will see prolonged debate; instead of unified movement, the leader will see fractured elements pursuing individual efforts.
-* Business Story
-    * CEO micromanaging
-    * Got involved in the how and was making granular decisions
-    * Dates slipping
-    * Product not delivered
-    * CEO had to step back
 
 # Chapter 3 - Resolute but not overbearing
 * Hold the line and standards for have value issues
