@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Five Tips for Troubleshooting Docker, Rails and Postgres Setup"
+title: Five Tips for Troubleshooting Docker, Rails and Postgres Setup
+date: 2021-01-30 06:01 -0600
 ---
-
 These five tips will help you if you run into trouble setting up your Rails app and your database using Postgres as an example. The setup to connect two containers, a application container and database container can become a challenge if your config is not quite right and you may start seeing errors like "No Postgres password supplied" or "TypeError (no implicit conversion of nil into String)" and this post can help!
 
-With a few troubleshooting tips and tricks setting up your Rails application to run with Docker and containerized Postgres image and be a quick and painless effort.
+With a few troubleshooting tips and tricks setting up your Rails application to run with Docker and containerized Postgres image can be a quick process.
 
 First, lets check out what out Dockerfile, docker-compose.yml and config/database.yml will look like when completed.
 
@@ -37,9 +37,9 @@ services:
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${ROCKWORM_DB_USER}
-      POSTGRES_PASSWORD: ${ROCKWORM_DB_PASSWORD}
-      POSTGRES_DB: ${ROCKWORM_DB_USER}
+      POSTGRES_USER: ${APP_DB_USER}
+      POSTGRES_PASSWORD: ${APP_DB_PASSWORD}
+      POSTGRES_DB: ${APP_DB_USER}
   web:
     build: .
     volumes:
@@ -49,9 +49,9 @@ services:
     depends_on:
       - db
     environment:
-      - ROCKWORM_DB_HOST=${ROCKWORM_DB_HOST}
-      - ROCKWORM_DB_PASSWORD=${ROCKWORM_DB_PASSWORD}
-      - ROCKWORM_DB_USER=${ROCKWORM_DB_USER}
+      - APP_DB_HOST=${APP_DB_HOST}
+      - APP_DB_PASSWORD=${APP_DB_PASSWORD}
+      - APP_DB_USER=${APP_DB_USER}
 ```
 
 ## config/database.yml
@@ -60,9 +60,9 @@ services:
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: <%= ENV["ROCKWORM_DB_HOST"] %>
-  username: <%= ENV["ROCKWORM_DB_USER"] %>
-  password: <%= ENV["ROCKWORM_DB_PASSWORD"] %>
+  host: <%= ENV["APP_DB_HOST"] %>
+  username: <%= ENV["APP_DB_USER"] %>
+  password: <%= ENV["APP_DB_PASSWORD"] %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -93,9 +93,9 @@ services:
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${ROCKWORM_DB_USER}
-      POSTGRES_PASSWORD: ${ROCKWORM_DB_PASSWORD}
-      POSTGRES_DB: ${ROCKWORM_DB_USER}
+      POSTGRES_USER: ${APP_DB_USER}
+      POSTGRES_PASSWORD: ${APP_DB_PASSWORD}
+      POSTGRES_DB: ${APP_DB_USER}
 ```
 
 To update your Postgres, delete the data director for Postgres to so that on the next startup the Postgres will reinitialize using your updated environment variables.
@@ -114,14 +114,14 @@ Check that your container image is running:
 docker ps
 
 CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS         PORTS                    NAMES
-b03bab16dbc6   rockworm_web      "rails server -b 0.0…"   10 seconds ago   Up 8 seconds   0.0.0.0:3000->3000/tcp   rockworm_web_1
-c2b8328d0935   postgres          "docker-entrypoint.s…"   10 seconds ago   Up 9 seconds   5432/tcp                 rockworm_db_1
+b03bab16dbc6   APP_web           "rails server -b 0.0…"   10 seconds ago   Up 8 seconds   0.0.0.0:3000->3000/tcp   APP_web_1
+c2b8328d0935   postgres          "docker-entrypoint.s…"   10 seconds ago   Up 9 seconds   5432/tcp                 APP_db_1
 1a3583832166   postgres:latest   "docker-entrypoint.s…"   24 hours ago     Up 24 hours    5432/tcp                 somestackname_db.1.dm1dinndadduvk91rirahcgvu
 ```
 
 Use the container image name to open a shell
 ```bash
-docker exec -it rockworm_db_1 /bin/bash
+docker exec -it APP_db_1 /bin/bash
 ```
 
 Once in the shell access psql
@@ -139,14 +139,14 @@ Once you've entered the psql you'll be able verify what has been initialized. He
 | \q                | quit               |
 
 # 5. Use environment variables again
-Using the local variables of your system will takes a bit of setup time and will make save you some time in the long run. This will help to ensure your Postgres credentials and db match your application database expectations.
+Using the local environment variables of your system will takes a tiny bit of setup time and will save you a good deal of time in the long run. This will help to ensure your Postgres credentials and db match your application database expectations and provide you with good flexibility to re-use your containers.
 
 ```YAML
 # docker-compose.yml
 environment:
-  POSTGRES_USER: ${ROCKWORM_DB_USER}
-  POSTGRES_PASSWORD: ${ROCKWORM_DB_PASSWORD}
-  POSTGRES_DB: ${ROCKWORM_DB_USER}
+  POSTGRES_USER: ${APP_DB_USER}
+  POSTGRES_PASSWORD: ${APP_DB_PASSWORD}
+  POSTGRES_DB: ${APP_DB_USER}
 ```
 
 ```YAML
@@ -154,9 +154,9 @@ environment:
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: <%= ENV["ROCKWORM_DB_HOST"] %>
-  username: <%= ENV["ROCKWORM_DB_USER"] %>
-  password: <%= ENV["ROCKWORM_DB_PASSWORD"] %>
+  host: <%= ENV["APP_DB_HOST"] %>
+  username: <%= ENV["APP_DB_USER"] %>
+  password: <%= ENV["APP_DB_PASSWORD"] %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
