@@ -9,5 +9,5 @@ The following three posts will provide will provide information to use Docker, D
 
 The following three part series will describe the setup and will
 * [Troubleshooting Docker, Rails and Postgres](troubleshooting-docker-rails-and-postgres.html)
-* Setup Docker, Rails, Rails Asset Pipeline, and Nginx
+* [Setup Docker, Rails, Rails Asset Pipeline, and Nginx]({% post_url 2021-02-16-docker-rails-assets %})
 * Add SSL with LetsEncrypt and Nginx
