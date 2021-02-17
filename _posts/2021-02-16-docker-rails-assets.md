@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Docker, Rails, NGINX and Assets
+date: 2021-02-16 06:51 -0600
 ---
-
 Assets, [NGINX](https://nginx.org/en/), and the [Rails Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html) have the potential to cause a bit of frustration and adding Docker to the mix things can add an extra element of trickiness. This post will walk you through the configurations that will run production Rails application in a production Docker environment, precompile your assets, and serve the precompiled assets using NGINX.
 
 # Build for Production Environment
@@ -65,6 +65,7 @@ location ~ ^/(assets|packs|images|javascripts|stylesheets|swfs|system)/ {
 ```
 
 # Check It Out!
+
 The application and NGINX are ready to server your assets. Use docker compose build and then start the processes for your application.
 
 ```bash
@@ -74,9 +75,11 @@ docker-compose up
 
 Using the domain you have configured check out your app with your assets served from NGINX!
 
-# Extra - Troubleshooting
+# Extra! Troubleshooting Tips and Tricks!
+A few extra troubleshooting tips and tricks...
 
 ## Checking production in Docker
+
 When you build your app and encounter the generic Rails error message page it may be because an asset was not found. The procedure you can use to check what the error is, asset related or otherwise, is to access the running container and check the log.
 
 ```bash
@@ -88,6 +91,7 @@ cat log/production.log
 ```
 
 ## Testing with a non docker NGINX
+
 If you are testing locally before getting Docker into the mix a useful command to reload NGINX:
 
 ```bash
