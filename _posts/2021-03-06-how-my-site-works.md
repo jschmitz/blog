@@ -49,8 +49,10 @@ The following steps are taken to deploy the blog and the application.
 
 ##  Deploying the Blog
 After a blog post is written and reviewed the following done to deploy, Jekyll can generate the blog site locally for testing. The output from Jekyll are static html files
-1. jekyll -b
-1. scp the directory to the server - scp _site/ user@<vps_ip_address>:/var/www/blog
+* rebuild the blog site:
+  1. jekyll -b
+* scp the directory to the server:
+  1. scp -r _site/ user@<vps_ip_address>:/var/www/blog
 
 ## Summary
 The opportunity to work with NGINX, LetsEncrypt, docker and docker-compose was fun, most of the time, and it is rewarding to see the site load nearly instantly. Despite the time investment, a higher level container or app solution is still appealing. As of now, the plan is to iterate the current setup and arrive at that single command awesomeness.
