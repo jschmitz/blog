@@ -76,7 +76,7 @@ Chap 9 (Plan) - Hostage Rescue / Creating a scalable sales plan
 * Delegate
 * Continually check, question and update the plan
 * Communicate the plan
-* Conduct post operational debrief (retro)
+* Conduct post operational debrief (aka retrospective)
 
 Chap 10 (Leading Up and Down the chain of Command) - Lack of understanding on overall option, Getting frustrated providing / Fielder manager team communicating with corporate
 * Leading down
@@ -89,6 +89,17 @@ Chap 10 (Leading Up and Down the chain of Command) - Lack of understanding on ov
 * Be proactive with providing additional information
 * Build trust
 
-Chap 11 (Decisiveness amid Uncertainty) -
+Chap 11 (Decisiveness amid Uncertainty) - Not being pressured into a decision with too much risk / Two leads not getting along; fired both
+* Important to act on the best information available decisively
+* The picture is not 100% clear
+* Must be ready to adjust
+* Waiting for 100% certainty results in delay
+* Must make educated guesses
 
-Chap 12 (Discipline Equals Freedom) -  
+Chap 12 (Discipline Equals Freedom) - Plan for clearing houses / Unprofitable division
+* Be disciplined using processes
+* Save time, decrease mistakes
+* Leaders must find a balance between discipline and freedom
+* Leaders must be ready to follow
+* Balance aggression and being overbearing
+* Must be confident and but not over confident
