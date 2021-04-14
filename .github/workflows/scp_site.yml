@@ -1,20 +1,17 @@
 name: scp _site files
-on: [push]
+on:
+  workflow_dispatch:
 jobs:
-
-  build:
-    name: Build
+ build:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "🎉 The job was automatically triggered by a ${{ secrets.HOST }} event."
-    - run: echo "🎉 The job was automatically triggered by a ${{ secrets.SSH_USER }} event."
-    - uses: actions/checkout@master
-    - name: Copy folder content recursively to remote
-      uses: garygrossgarten/github-action-scp@release
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7.1
+      uses: actions/setup-ruby@v1
       with:
-        local: _posts
-        remote: /var/www/blog
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.SSH_USER }}
-        password: ${{ secrets.SSH_PASSWORD }}
-    - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+        ruby-version: 2.7.1
+    - name: Build
+      run: |
+        sudo apt-get -yqq install libpq-dev
+        gem install bundler
+        bundle install --jobs 4 --retry 3
