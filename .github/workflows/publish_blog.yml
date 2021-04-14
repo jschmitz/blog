@@ -23,7 +23,7 @@ jobs:
     - name: List Root Files
       run: |
         ls ${{ github.workspace }}
-    - name: copy file via ssh password
+    - name: Copy _site directory
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.HOST }}
