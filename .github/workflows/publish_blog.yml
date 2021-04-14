@@ -20,6 +20,14 @@ jobs:
         bundle install --jobs 4 --retry 3
     - name: Generate blog site
       run: jekyll b
-    - name: SCP _site to web server
+    - name: List Root Files
       run: |
         ls ${{ github.workspace }}
+    - name: Copy folder content recursively to remote
+      uses: garygrossgarten/github-action-scp@release
+      with:
+        local: _site
+        remote: /var/www/blog
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
