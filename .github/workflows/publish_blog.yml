@@ -1,0 +1,25 @@
+name: Rails Unit Tests
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7.1
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.1
+    - name: Build and test with Rake
+      run: |
+        sudo apt-get -yqq install libpq-dev
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+    - name: Generate blog site
+      run: jekyll b
+    - name: SCP _site to web server
+      run: |
+        ls ${{ github.workspace }}
