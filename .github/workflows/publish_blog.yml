@@ -29,6 +29,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
+        KEY: ${{ secrets.KEY }}
         port: 22
         source: "_site"
         target: "/var/www/blog"
