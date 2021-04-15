@@ -1,6 +1,6 @@
 name: Publish Blog
 
-on: [push, workflow_dispatch]
+on: workflow_dispatch
 
 jobs:
   build:
@@ -11,8 +11,8 @@ jobs:
     - name: executing remote ssh commands using ssh key
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.SSH_USER }}
+        host: 142.93.195.160
+        username: jschmitz
         key: ${{ secrets.KEY }}
         port: 22
         script: whoami
