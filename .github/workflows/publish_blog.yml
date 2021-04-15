@@ -12,7 +12,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: 142.93.195.160
-        username: bob
+        username: jschmitz
         key: ${{ secrets.KEY }}
         port: 22
         script: whoami
