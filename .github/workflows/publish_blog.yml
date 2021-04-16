@@ -30,5 +30,6 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
+        rm: true
         source: "_site"
-        target: "/var/www/testblog"
+        target: "/var/www/blog"
