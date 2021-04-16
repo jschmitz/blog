@@ -13,17 +13,17 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.7
-    - name: Build and test with Rake
+    - name: Build
       run: |
         sudo apt-get -yqq install libpq-dev
         gem install bundler
         bundle install --jobs 4 --retry 3
-    - name: Generate blog site
+    - name: Generate blog
       run: jekyll b
     - name: List Root Files
       run: |
         ls ${{ github.workspace }}
-    - name: Copy _site directory
+    - name: Deploy _site directory
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -32,4 +32,4 @@ jobs:
         port: ${{ secrets.PORT }}
         overwrite: true
         source: "_site"
-        target: "/var/www/blog"
+        target: "/var/www/testblog"
