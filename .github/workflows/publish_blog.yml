@@ -32,4 +32,4 @@ jobs:
         port: ${{ secrets.PORT }}
         overwrite: true
         source: "_site"
-        target: "/var/www/testblog"
+        target: "/var/www/blog"
