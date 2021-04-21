@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Improve focus and Sleep!"
+title: "Improve Focus and Sleep!"
 ---
 
 My mind races. It seems to be racing all of the time and this seems helpful in many ways. The ability to think through problems, keep track of numerous different efforts and anticipate multiple upcoming scenarios seems to be helpful to arrive at good outcomes. On the flip side, there are two very apparent problems, and likely more, that my mind racing causes. First, waking up in the middle of the night is rough, my mind starts racing and getting back to sleep is a struggle and doesn’t always happen. Second, I'll struggle to focus and my mind wanders from present to an ongoing problem that I’m hashing through for the 18th time for no benefit.  Not great.
