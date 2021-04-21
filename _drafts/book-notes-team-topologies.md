@@ -52,7 +52,7 @@ Chap 2
 * Adherence to conways law can work against fast flow
   * Tool choices drive communication patterns
   * Many different component teams
-  * Repeated reorganizations that create fiefdoms or reduce headcount
+  * Repeated reorganizations   that create fiefdoms or reduce headcount
 
 
 Chap 3
