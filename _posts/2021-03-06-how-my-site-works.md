@@ -19,6 +19,7 @@ The key tooling used:
 * [Docker Compose](https://github.com/docker/compose)
 * [Let's Encrypt](https://letsencrypt.org/)
 * [Jekyll](https://jekyllrb.com/)
+* [Github Actions](https://github.com/features/actions)
 
 ## NGINX
 NGINX is installed locally on the VPS and is used to accept incoming HTTP requests for my domain and NGINX routes requests   to the blog and the application. The VPS firewall needed to be configured to permit HTTP communication and Digital Ocean provides great documentation to set this up correctly. Here are two that are helpful:
@@ -35,24 +36,18 @@ The application has two sets of routes:
 
 This post provides more information on providing assets using NGINX.
 
-## Deploying the App
-Docker and docker-compose are used to the deploy the application. Application changes are built using docker-compose, tagged, sent to docker hub and than pulled from docker hub via a separate docker-compose script.
+## Deploying the Apps
+The deployment process is a lot of fun. I push a commit to the main branch of the blog or web application repositories and the change is deployed automatically by Github Actions to a Virtual Private Server (VPS).
 
-The following steps are taken to deploy the blog and the application.
-1. Dev Machine: docker-compose build
-1. Dev Machine: docker tag app_name _docker_hub_user/app_name:incrementing_number_
-1. Dev Machine: docker push docker_hub_user/app_name:1
-1. VPS: Update app_name image tag to pull the latest
-1. VPS: docker pull _docker_hub_user/app_name:incrementing_number_
-1. VPS: docker-compose down
-1. VPS: docker-compose up -d
+### Webapp Deploy
+Git, Docker, Dockerhub and docker-compose are used to the deploy the application. Application changes are built, tested, a production image is created, sent to DockerHub, pulled from docker hub on the VPS and started on the VPS.
 
-##  Deploying the Blog
-After a blog post is written and reviewed the following done to deploy, Jekyll can generate the blog site locally for testing. The output from Jekyll are static html files
-* rebuild the blog site:
-  1. jekyll -b
-* scp the directory to the server:
-  1. scp -r _site/ user@<vps_ip_address>:/var/www/blog
+Check out [Webapp Continuous Delivery Script](https://github.com/jschmitz/rockworm/blob/main/.github/workflows/cd.yml)
+
+### Blog Deploy
+After a blog post is written and reviewed the following done to deploy, the change is committed and that triggers the deploy process. The process to deploy the blog is much simpler than the webapp. The project is checked out, Jekyll is used to build the blog site and the production directory is SCP'ed to the VPS
+
+Check out the [Blog Deployment Script](https://github.com/jschmitz/rockworm/blob/main/.github/workflows/cd.yml)
 
 ## Summary
 The opportunity to work with NGINX, LetsEncrypt, docker and docker-compose was fun, most of the time, and it is rewarding to see the site load nearly instantly. Despite the time investment, a higher level container or app solution is still appealing. As of now, the plan is to iterate the current setup and arrive at that single command awesomeness.
