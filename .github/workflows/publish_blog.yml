@@ -1,6 +1,9 @@
 name: Publish Blog
 
-on: [push]
+ on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
