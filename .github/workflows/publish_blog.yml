@@ -1,6 +1,6 @@
 name: Publish Blog
 
- on:
+on:
   push:
     branches:
       - main
