@@ -9,3 +9,45 @@
   width: 45rem;
   margin: 0 auto;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social_icons {
+  display: flex;
+  justify-content: space-between;
+  margin-left: auto;
+}
+
+.social_icons * {
+  padding: 0px 16px 0px 0px;
+}
+
+a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+}
+
+a:link {
+  color: #FFF;
+}
+
+a:visited {
+  color: #FFF;
+}
+
+a:focus {
+  color: #FFF;
+}
+
+a:hover {
+  color: #FFF;
+}
+
+a:active {
+  color: #FFF;
+}
