@@ -6,6 +6,6 @@ permalink: /about/
 
 Thank you for checking out the blog!
 
-For additional information about me please visit:
+For more of the story check out:
 
 [jakeschmitz.com](https://www.jakeschmitz.com)
