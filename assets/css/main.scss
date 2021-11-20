@@ -5,25 +5,62 @@
 
 @import "typography";
 
-h1 {
-  font-family: 'Dosis';
-  font-size: 22px;
+body {
+  display: flex;
+  justify-content: center;
 }
-j
+
 h1 {
   font-family: 'Dosis';
   font-size: 22px;
 }
 
-.content {
-  width: 45rem;
-  margin: 0 auto;
+h2 {
+  font-family: 'Dosis';
+  font-size: 22px;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 25px 0px 25px;
+}
+
+@media(min-width:768px) {
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 50px 0px 50px;
+    max-width: 1200px;
+    justify-content: center;
+  }
+
+}
+
+.content img {
+  width: 100%;
+}
+
+.copy1{
+  flex: 1;
+  order:1;
+}
+
+.copy2{
+  flex: 2;
+  order:2;
+}
+
+.picture{
+  flex: 1;
+  order:3;
 }
 
 .social_icons {
