@@ -1,1 +1,14 @@
-this is the post layout
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include head_elements.html %}
+  </head>
+  <body>
+    <div class="main">
+      <div class="header">
+        {% include header.html %}
+      </div>
+      {{ content }}
+    </div>
+  </body>
+</html>

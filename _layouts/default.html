@@ -1,40 +1,14 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Jake Schmitz</title>
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
-    <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    {% include head_elements.html %}
   </head>
   <body>
     <div class="main">
       <div class="header">
-        <div>
-          <h1><a href="/">Jake Schmitz</a></h1>
-        </div>
-        <div class="social_icons">
-          <a href="/blog">Blog</a>
-          <a target="_blank" href="https://github.com/jschmitz" rel="noreferrer noopener">
-            <img src="/assets/images/github-11-16.png" alt="Github Logo" />
-          </a>
-          <a target="_blank" href="https://twitter.com/jakeschmitz" rel="noreferrer noopener">
-            <img src="/assets/images/twitter-16.png" alt="Twitter Logo" />
-          </a>
-          <a target="_blank" href="https://www.goodreads.com/user/show/18015802-jake-schmitz" rel="noreferrer noopener">
-            <img src="/assets/images/goodreads_icon.png" alt="Goodreads Logo" width="16" height="16" />
-          </a>
-          <a target="_blank" href="https://www.linkedin.com/in/jake-schmitz-745b3b1/" rel="noreferrer noopener">
-            <img src="/assets/images/linkedin-6-16.png" alt="LinkedIn Logo" />
-          </a>
-        </div>
+        {% include header.html %}
       </div>
-      <div>
-        {{ content }}
-      </div>
+      {{ content }}
     </div>
   </body>
 </html>

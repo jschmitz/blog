@@ -3,12 +3,13 @@
 # only Main files contain this front matter, not partials.
 ---
 
-@import "typography";
-
 body {
   display: flex;
-  justify-content: center;
+  background-color: black;
+  color: white;
+  margin: 10px 20px 10px 20px;
 }
+
 
 h1 {
   font-family: 'Dosis';
@@ -22,7 +23,21 @@ h2 {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  align-items: flex-start;
+}
+
+.social_icons {
+  display: flex;
+  margin-left: auto;
   align-items: center;
 }
 
@@ -63,11 +78,6 @@ h2 {
   order:3;
 }
 
-.social_icons {
-  display: flex;
-  justify-content: space-between;
-  margin-left: auto;
-}
 
 .social_icons a {
   padding: 0px 8px 0px 0px;
