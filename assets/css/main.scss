@@ -10,19 +10,22 @@ body {
   margin: 10px 20px 10px 20px;
 }
 
-
 h1 {
   font-family: 'Dosis';
-  font-size: 22px;
+  font-size: 32px;
 }
 
 h2 {
   font-family: 'Dosis';
-  font-size: 22px;
+  font-size: 28px;
 }
 
-li{
+.blog_index li{
   list-style-type: none;  
+}
+
+.blog_index {
+  padding: 0px 0px 0px 0px;
 }
 
 .header {
@@ -33,10 +36,15 @@ li{
 .main {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .logo {
   align-items: flex-start;
+}
+
+.logo h1 {
+  font-size: 40px;
 }
 
 .social_icons {
@@ -56,8 +64,7 @@ li{
   .content {
     display: flex;
     flex-direction: column;
-    margin: 0px 50px 0px 50px;
-    max-width: 1200px;
+    margin: 0px 150px 0px 150px;
     justify-content: center;
   }
 
