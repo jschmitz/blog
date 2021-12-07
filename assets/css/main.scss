@@ -3,8 +3,11 @@
 # only Main files contain this front matter, not partials.
 ---
 
+html,body{
+  overflow-x: hidden;
+}
+
 body {
-  display: flex;
   background-color: #0d1116;
   color: #f0f6fc;
   margin: 0px 0px 0px 0px;
@@ -61,7 +64,9 @@ h2 {
 .content {
   display: flex;
   flex-direction: column;
-  margin: 0px 25px 0px 25px;
+  max-width: 680px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 @media(min-width:768px) {
@@ -69,8 +74,9 @@ h2 {
   .content {
     display: flex;
     flex-direction: column;
-    margin: 0px 150px 0px 150px;
-    justify-content: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
 }
