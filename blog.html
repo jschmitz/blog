@@ -3,11 +3,16 @@ title: Blog
 layout: default
 ---
 
-<ul class="blog_index">
+<ul class="posts">
   {% for post in site.posts %}
-    <li>
-      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-      {{ post.excerpt }}
+    <li class="post">
+      <div class="post_date">
+        {{ post.date | date: "%B %e, %Y"}}
+      </div>
+      <div class="post_title"><a href="{{ post.url }}">{{ post.title }}</a></div>
+      <div class="post_excerpt">
+        {{ post.excerpt }}
+      </div>
     </li>
   {% endfor %}
 </ul>
