@@ -1,0 +1,18 @@
+---
+title: Blog
+layout: default
+---
+
+<ul class="posts">
+  {% for post in site.posts %}
+    <li class="post">
+      <div class="post_date">
+        {{ post.date | date: "%B %e, %Y"}}
+      </div>
+      <div class="post_title"><a href="{{ post.url }}">{{ post.title }}</a></div>
+      <div class="post_excerpt">
+        {{ post.excerpt }}
+      </div>
+    </li>
+  {% endfor %}
+</ul>

@@ -22,15 +22,20 @@ title: Jake's Blog
 email: jschmitz@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   This is a blog about what I'm learning about
-baseurl: "/blog" # the subpath of your site, e.g. /blog
+# baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "https://www.jakeschmitz.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jakeschmitz
 github_username:  jschmitz
 
 # Build settings
-theme: minima
 plugins:
   - jekyll-feed
+
+sass:
+  sass_dir: _sass
+  style: compact # possible values: nested expanded compact compressed
+
+highlighter: rouge
 
 # Exclude from processing.
 # The following items will not be processed, by default.

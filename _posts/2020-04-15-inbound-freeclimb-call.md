@@ -6,11 +6,9 @@ categories:  [ruby, rails, FreeClimb]
 tags: [inbound, phone call]
 ---
 
-# Receiving a phone call from FreeClimb
-
 This post walks through the set up of an application that will answer a phone call and say 'Hello World' to the caller using [FreeClimb](https://www.freeclimb.com/).
 
-### Communication Flow
+## Communication Flow
 There are four things involved in the communication flow:
 1. A Phone
 1. [FreeClimb](https://www.freeclimb.com/)
