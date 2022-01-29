@@ -1,4 +1,8 @@
-Book Review: Team Topologies
+---
+layout: post
+title: "Book Review: Team Topologies"
+date: 2022-01-08 14:59 -0600
+---
 
 [Team Topologies](https://www.goodreads.com/book/show/44135420-team-topologies?ac=1&from_search=true&qid=hFfpZOUpUu&rank=1) is an excellent read for engineering managers if you are curious about how to organize teams and their interactions. Many engineering managers have experienced the pain of hand-offs between teams going awry, lack of clarity in team interactions causing frustration, and too many integration meetings that drain energy in your day. Team Topologies is a read to help your teams reduce those pains and have more fun delivering software.
 
