@@ -1,3 +1,11 @@
+---
+layout: post
+title: "First Conversation with ChatGPT"
+date: 2022-01-29 09:59 -0600
+---
+
+The following are my initial interactions with ChatGPT to attempt to have it finish an initial blog post about building a product using as many AI contributions as feasible.
+
 **_Jake Schmitz_**
 
 id like to write a series of blog posts to build a product using AI. the app will be called "Track to Sleep". Can you write the first blog post

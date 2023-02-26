@@ -1,4 +1,8 @@
-# My Product Journey Using AI
+---
+layout: post
+title: "Series: Build a Product Using AI - Post 1"
+date: 2022-01-29 09:59 -0600
+---
 
 How doomed are software developers concerning AI?
 
@@ -25,7 +29,7 @@ With that, I'm not asking questions that will yield the result(s) that I'm expec
 
 My conclusion from my initial attempt to get AI to save me time is that there will be a level of skill involved with formulating questions and interactions that I'll need to develop along the way. I was not anticipating a free ride and did not arrive at a result I would copy and paste.
 
-You can see all of the [interactions here](first-blog-post-chatgpt-full.md)
+You can see all of the [interactions here](first-blog-post-chatgpt-full.html)
 , and I've added the closest response I was looking for below. Next, I'd like to write a pitch for the product to guide me.
 
 ## Closest to Desired Interaction Result
